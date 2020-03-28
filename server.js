@@ -3,13 +3,18 @@ const mongoose = require('mongoose');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
-const db = 'mongodb+srv://bvyakh:@cluster0-t2ywd.mongodb.net/test?retryWrites=true&w=majority'
+const db = 'mongodb+srv://bhavyakh:bhavyakh@cluster0-t2ywd.mongodb.net/test?retryWrites=true&w=majority'
+const bodyParser = require('body-parser')
 
 
 mongoose.connect(db)
     .then(() => console.log("Connected to Mongodb ") )
     .catch((err) => console.log(err))
 const app = express();
+
+// body parser middleware
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
 
 app.get('/' , (req,res) => res.send("hss"));        
 
