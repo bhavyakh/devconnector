@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
-const db = 'mongodb+srv://bhavyakh:bhavyakh@cluster0-t2ywd.mongodb.net/test?retryWrites=true&w=majority'
+const db = 'mongodb+srv://bvyakh:@cluster0-t2ywd.mongodb.net/test?retryWrites=true&w=majority'
 
 
 mongoose.connect(db)
