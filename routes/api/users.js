@@ -2,9 +2,13 @@ const express = require('express')
 const router = express.Router();
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const passport = require('passport')
+
+
+//input validation 
+const validateRInput = require('../../validation/register');
 
 // load model
-
 const User = require('../../models/User');
 
 // @route GET api/users/test
@@ -18,10 +22,17 @@ router.get('/test',(req,res)=> res.json({
 //@desc Register User
 //@access Public
 router.post('/register', (req,res) => {
+    const { errors, isValid } = validateRInput(req.body);
+
+    if(!isValid) {
+        console.log("ye khul raha hai") 
+        return res.status(400).json(errors);
+    }
     User.findOne({email : req.body.email})
     .then(user => {
         if(user) {
-            return res.status(400).json({email : 'Email Already Exists'});
+            error.email = 'Email Already Exists'
+            return res.status(400).json(errors);
         }
         else {
             const newUs = new User({
@@ -53,14 +64,15 @@ router.post('/login' , (req,res)=> {
     User.findOne({email})
         .then(user => {
             if(!user){
-                return res.status(404).json({email : "user not found"});
+                errors.email = 'User not found'
+                return res.status(404).json(errors);
             }
             
             bcrypt.compare(password,user.password)
                 .then(hua =>{
                         if(hua){
                             //Generate Token
-                            console.log("ok1")
+                            
                             const payload = {
                                 id : user.id,
                                 name : user.name,
@@ -74,10 +86,20 @@ router.post('/login' , (req,res)=> {
                             });
                         }
                         else{
-                            return res.status(404).json({email : "password doesnt match"})
+                            err.password ='Incorrect'
+                            return res.status(404).json(errors)
                         }
                     })
         })
 })
+
+
+// @route GET api/users/current
+// @desc Return Current User
+// @access Private
+router.get('/current' , passport.authenticate('jwt' , {session : false }) , (req,res ) => {
+    res.json(req.user)
+})
+
 
 module.exports = router;
