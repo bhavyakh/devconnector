@@ -39,11 +39,11 @@ const ProfileSchem = new Schema({
         {
             title : {
                 type: String,
-                required : true
+                required : false
             },
             company : {
                 type : String,
-                required : true
+                required : false
             },
             location : {
                 type : String
@@ -60,11 +60,11 @@ const ProfileSchem = new Schema({
         {
             school : {
                 type: String,
-                required : true
+                required : false
             },
             degree : {
                 type : String,
-                required : true
+                required : false
             },
             field : {
                 type : String

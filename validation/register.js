@@ -4,8 +4,8 @@ module.exports = function validateRInput(data) {
     let errors = {}
 
     data.name = !isEmpty(data.name) ? data.name : ""
-    data.password = !isEmpty(data.password) ? data.name : ""
-    data.email = !isEmpty(data.email) ? data.name : ""
+    data.password = !isEmpty(data.password) ? data.password : ""
+    data.email = !isEmpty(data.email) ? data.email : ""
      
     if(!Validator.isLength(data.name , { min :2 , max :30})){
         errors.name = 'Name must be between 2 and 30 chars ';

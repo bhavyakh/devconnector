@@ -25,7 +25,6 @@ router.post('/register', (req,res) => {
     const { errors, isValid } = validateRInput(req.body);
 
     if(!isValid) {
-        console.log("ye khul raha hai") 
         return res.status(400).json(errors);
     }
     User.findOne({email : req.body.email})
